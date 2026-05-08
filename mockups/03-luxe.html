@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>QUMAI · Maison Edition</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  :root{
+    --bg:#0c0d0a;
+    --bg-2:#15140f;
+    --panel:#1a1813;
+    --line:#2a2620;
+    --gold:#c8a96a;
+    --gold-soft:#a78848;
+    --emerald:#1e4d3c;
+    --emerald-soft:#2a6e57;
+    --ivory:#ece4d3;
+    --muted:#7a7264;
+    --red:#a64242;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{
+    background:var(--bg);
+    color:var(--ivory);
+    font-family:"Didot","Bodoni 72","Times New Roman",Georgia,serif;
+    min-height:100vh;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;
+    background:radial-gradient(ellipse at top,rgba(200,169,106,.06),transparent 60%);
+  }
+  .wrap{max-width:1280px;margin:0 auto;padding:24px 48px 80px;position:relative}
+
+  /* Top bar */
+  .topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)}
+  .crest{display:flex;align-items:center;gap:14px}
+  .crest-mark{
+    width:46px;height:46px;border:1px solid var(--gold);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--gold);font-size:18px;font-weight:700;letter-spacing:-1px;
+    position:relative;
+  }
+  .crest-mark::before,.crest-mark::after{
+    content:"";position:absolute;width:54px;height:54px;border:1px solid var(--gold);border-radius:50%;opacity:.3;
+  }
+  .crest-mark::after{width:62px;height:62px;opacity:.15}
+  .crest-name{font-size:24px;letter-spacing:8px;font-weight:400}
+  .crest-name small{display:block;font-size:9px;letter-spacing:6px;color:var(--gold);margin-top:2px;font-family:Helvetica,Arial,sans-serif}
+
+  .top-meta{display:flex;gap:32px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-family:Helvetica,Arial,sans-serif}
+  .top-meta span b{color:var(--gold);font-weight:400}
+
+  /* Nav */
+  nav{display:flex;justify-content:center;gap:48px;padding:24px 0;border-bottom:1px solid var(--line);font-family:Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:4px;text-transform:uppercase}
+  nav a{color:var(--ivory);text-decoration:none;position:relative;padding:6px 0;transition:color .2s}
+  nav a.on{color:var(--gold)}
+  nav a.on::after{content:"";position:absolute;bottom:-25px;left:50%;transform:translateX(-50%);width:6px;height:6px;background:var(--gold);border-radius:50%}
+
+  /* Hero */
+  .hero{display:grid;grid-template-columns:1.1fr 1fr;gap:0;margin:48px 0 64px;border:1px solid var(--line);background:var(--bg-2)}
+  .hero-img{aspect-ratio:1/1.15;background:
+    radial-gradient(circle at 30% 30%,#3a3528,#1a1813 70%),
+    var(--bg-2);
+    position:relative;overflow:hidden;border-right:1px solid var(--line)
+  }
+  .hero-img::before{
+    content:"";position:absolute;inset:48px;border:1px solid var(--gold);opacity:.2;
+  }
+  .hero-img::after{
+    content:"25";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    font-size:240px;font-weight:300;color:var(--gold);opacity:.15;letter-spacing:-12px;
+  }
+  .hero-watermark{position:absolute;bottom:24px;left:24px;right:24px;display:flex;justify-content:space-between;font-family:Helvetica,Arial,sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
+  .hero-img .corner{position:absolute;width:24px;height:24px;border:1px solid var(--gold);opacity:.4}
+  .hero-img .corner.tl{top:24px;left:24px;border-right:none;border-bottom:none}
+  .hero-img .corner.tr{top:24px;right:24px;border-left:none;border-bottom:none}
+  .hero-img .corner.bl{bottom:24px;left:24px;border-right:none;border-top:none}
+  .hero-img .corner.br{bottom:24px;right:24px;border-left:none;border-top:none}
+
+  .hero-info{padding:48px;display:flex;flex-direction:column;justify-content:space-between}
+  .demo{display:inline-block;font-family:Helvetica,Arial,sans-serif;font-size:9px;letter-spacing:3px;color:var(--gold-soft);border:1px solid var(--gold-soft);padding:4px 8px;width:fit-content;text-transform:uppercase;margin-bottom:24px}
+  .kicker{font-family:Helvetica,Arial,sans-serif;font-size:10px;letter-spacing:6px;color:var(--gold);text-transform:uppercase;margin-bottom:20px}
+  .hero h1{font-size:56px;line-height:1;font-weight:300;letter-spacing:-1px;margin-bottom:16px}
+  .hero h1 em{font-style:italic;color:var(--gold);font-weight:400}
+  .hero .sub-line{font-size:14px;color:var(--muted);font-family:Helvetica,Arial,sans-serif;letter-spacing:2px;text-transform:uppercase;margin-bottom:32px}
+
+  .ornament{display:flex;align-items:center;gap:16px;margin:24px 0;color:var(--gold)}
+  .ornament .line{flex:1;height:1px;background:var(--gold);opacity:.3}
+  .ornament .dot{width:5px;height:5px;background:var(--gold);transform:rotate(45deg)}
+
+  /* Price ledger */
+  .ledger{font-family:Helvetica,Arial,sans-serif}
+  .ledger-row{display:grid;grid-template-columns:1fr 140px 100px 60px;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--line);font-size:13px}
+  .ledger-row:last-child{border-bottom:none}
+  .ledger-row .loc{color:var(--ivory)}
+  .ledger-row .loc small{display:block;color:var(--muted);font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-top:3px}
+  .ledger-row .num{font-family:Didot,"Bodoni 72",serif;font-size:22px;text-align:right;font-weight:400;letter-spacing:-.5px}
+  .ledger-row .num.best{color:var(--gold)}
+  .ledger-row .diff{text-align:right;font-size:12px;letter-spacing:2px}
+  .ledger-row .diff.neg{color:var(--emerald-soft)}
+  .ledger-row .diff.base{color:var(--muted)}
+  .ledger-row .src-i{text-align:right;color:var(--gold-soft);font-size:11px;letter-spacing:2px;text-decoration:none}
+  .ledger-row .src-i:hover{color:var(--gold)}
+  .ledger-row.best{background:linear-gradient(90deg,rgba(200,169,106,.08),transparent)}
+
+  /* Section header */
+  .h2{display:flex;justify-content:space-between;align-items:flex-end;margin:80px 0 32px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+  .h2 .label{font-size:10px;letter-spacing:6px;color:var(--gold);text-transform:uppercase;font-family:Helvetica,Arial,sans-serif;margin-bottom:8px}
+  .h2 .title{font-size:36px;letter-spacing:-1px;font-weight:300}
+  .h2 .title em{font-style:italic;color:var(--gold)}
+  .h2 .more{font-family:Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);text-decoration:none}
+
+  /* Watchlist grid */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+  .card{background:var(--bg-2);border:1px solid var(--line);transition:all .3s;position:relative}
+  .card:hover{border-color:var(--gold);transform:translateY(-2px)}
+  .card-img{aspect-ratio:1/1;position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+  .card-img.t1{background:radial-gradient(circle at 35% 35%,#3a2828,#1a1010 70%)}
+  .card-img.t2{background:radial-gradient(circle at 35% 35%,#28323a,#101618 70%)}
+  .card-img.t3{background:radial-gradient(circle at 35% 35%,#3a3a28,#181810 70%)}
+  .card-tag{position:absolute;top:12px;right:12px;font-family:Helvetica,Arial,sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;padding:4px 10px;border:1px solid var(--gold);color:var(--gold);background:rgba(12,13,10,.8)}
+  .card-tag.hit{background:var(--gold);color:var(--bg);border-color:var(--gold)}
+  .card-tag.oos{border-color:var(--red);color:var(--red)}
+  .card-body{padding:24px}
+  .card-meta{font-family:Helvetica,Arial,sans-serif;font-size:9px;letter-spacing:4px;color:var(--gold-soft);text-transform:uppercase;margin-bottom:12px;display:flex;justify-content:space-between}
+  .card h3{font-size:24px;font-weight:300;line-height:1.1;margin-bottom:20px;letter-spacing:-.5px}
+  .card h3 em{font-style:italic;color:var(--gold)}
+  .card-price{display:flex;justify-content:space-between;align-items:baseline;padding-top:16px;border-top:1px solid var(--line);font-family:Helvetica,Arial,sans-serif}
+  .card-price .now{font-family:Didot,serif;font-size:24px;color:var(--gold)}
+  .card-price .delta{font-size:11px;letter-spacing:2px;color:var(--emerald-soft)}
+  .card-where{font-family:Helvetica,Arial,sans-serif;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:8px}
+
+  /* Intel feed */
+  .feed{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
+  .feed-item{background:var(--bg-2);padding:24px;display:flex;gap:16px}
+  .av{width:40px;height:40px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:14px;flex-shrink:0;font-family:Helvetica,Arial,sans-serif}
+  .feed-body{flex:1}
+  .feed-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;font-family:Helvetica,Arial,sans-serif}
+  .feed-head strong{font-size:13px;font-weight:400;letter-spacing:1px}
+  .feed-head .stamp{font-size:9px;letter-spacing:3px;color:var(--gold-soft);text-transform:uppercase}
+  .quote{font-style:italic;font-size:14px;line-height:1.6;color:var(--ivory)}
+  .quote::before{content:"❝ ";color:var(--gold);font-size:18px}
+  .quote::after{content:" ❞";color:var(--gold);font-size:18px}
+  .feed-foot{display:flex;justify-content:space-between;margin-top:14px;padding-top:10px;border-top:1px solid var(--line);font-family:Helvetica,Arial,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+  .feed-foot a{color:var(--gold);text-decoration:none}
+
+  /* Footer */
+  footer{margin-top:96px;padding-top:32px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-family:Helvetica,Arial,sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
+  footer .col{display:flex;flex-direction:column;gap:8px}
+  footer .gold{color:var(--gold)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="crest">
+      <div class="crest-mark">Q</div>
+      <div class="crest-name">QUMAI<small>MAISON · TOKYO</small></div>
+    </div>
+    <div class="top-meta">
+      <span>EST. <b>2026</b></span>
+      <span>VOL. <b>I</b></span>
+      <span>JPY100 · <b>CNY 4.71</b></span>
+      <span>WED · <b>08 V 2026</b></span>
+    </div>
+  </div>
+
+  <nav>
+    <a class="on" href="#">Maison</a>
+    <a href="#">Chanel</a>
+    <a href="#">Louis Vuitton</a>
+    <a href="#">Hermès</a>
+    <a href="#">Le Marché</a>
+    <a href="#">Sources</a>
+    <a href="#">Archives</a>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-img">
+      <div class="corner tl"></div><div class="corner tr"></div>
+      <div class="corner bl"></div><div class="corner br"></div>
+      <div class="hero-watermark">
+        <span>CHANEL · 25</span>
+        <span>SS25 · BLACK CALF</span>
+      </div>
+    </div>
+    <div class="hero-info">
+      <div>
+        <div class="demo">DEMO · 示例数据</div>
+        <div class="kicker">— Featured Acquisition —</div>
+        <h1>Chanel <em>25</em><br>Small <em>Noir</em></h1>
+        <div class="sub-line">8 sources · live ledger</div>
+
+        <div class="ornament"><span class="line"></span><span class="dot"></span><span class="line"></span></div>
+
+        <div class="ledger">
+          <div class="ledger-row best">
+            <div class="loc">Ginza · Mitsukoshi<small>JP · After Tax Refund</small></div>
+            <div class="num best">¥ 41,200</div>
+            <div class="diff neg">−¥ 7,800</div>
+            <a class="src-i" href="#">微博 ↗</a>
+          </div>
+          <div class="ledger-row">
+            <div class="loc">Osaka · Daimaru<small>JP · Shinsaibashi</small></div>
+            <div class="num">¥ 42,100</div>
+            <div class="diff neg">−¥ 6,900</div>
+            <a class="src-i" href="#">X ↗</a>
+          </div>
+          <div class="ledger-row">
+            <div class="loc">Narita Airport<small>JP · Duty Free</small></div>
+            <div class="num">¥ 43,500</div>
+            <div class="diff neg">−¥ 5,500</div>
+            <a class="src-i" href="#">YT ↗</a>
+          </div>
+          <div class="ledger-row">
+            <div class="loc">Beijing · SKP<small>CN · Official</small></div>
+            <div class="num">¥ 49,000</div>
+            <div class="diff base">— Base</div>
+            <a class="src-i" href="#">Chanel ↗</a>
+          </div>
+          <div class="ledger-row">
+            <div class="loc">Mercari · 95% New<small>JP · Pre-owned</small></div>
+            <div class="num">¥ 38,900</div>
+            <div class="diff neg">−¥ 10,100</div>
+            <a class="src-i" href="#">MC ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Watchlist -->
+  <div class="h2">
+    <div>
+      <div class="label">— THE COLLECTION —</div>
+      <div class="title">Your <em>Watchlist</em></div>
+    </div>
+    <a class="more" href="#">View all 12 ↗</a>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-img t1">
+        <span class="card-tag hit">Target Hit</span>
+      </div>
+      <div class="card-body">
+        <div class="card-meta"><span>CHANEL</span><span>22 BAG · S</span></div>
+        <h3>22Bag <em>Small</em><br>Black · Gold</h3>
+        <div class="card-price">
+          <span class="now">¥ 38,200</span>
+          <span class="delta">−¥ 7,400</span>
+        </div>
+        <div class="card-where">Ginza Boutique · 微博 source</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img t2">
+        <span class="card-tag">Tracking</span>
+      </div>
+      <div class="card-body">
+        <div class="card-meta"><span>LOUIS VUITTON</span><span>M40995</span></div>
+        <h3>Neverfull <em>MM</em><br>Damier Ebene</h3>
+        <div class="card-price">
+          <span class="now">¥ 17,100</span>
+          <span class="delta">−¥ 2,400</span>
+        </div>
+        <div class="card-where">Osaka Takashimaya · 退税后</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img t3">
+        <span class="card-tag oos">Sold Out</span>
+      </div>
+      <div class="card-body">
+        <div class="card-meta"><span>CHANEL</span><span>"黄牛角"</span></div>
+        <h3>Coco <em>Handle</em><br>Small · Caviar</h3>
+        <div class="card-price">
+          <span class="now" style="color:var(--muted)">— Inquire —</span>
+          <span class="delta" style="color:var(--red)">5/5 OOS</span>
+        </div>
+        <div class="card-where">Awaiting restock · 昵称待你确认</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Field intel -->
+  <div class="h2">
+    <div>
+      <div class="label">— DISPATCHES —</div>
+      <div class="title">Field <em>Intelligence</em></div>
+    </div>
+    <a class="more" href="#">47 in last 24h ↗</a>
+  </div>
+
+  <div class="feed">
+    <div class="feed-item">
+      <div class="av">微</div>
+      <div class="feed-body">
+        <div class="feed-head"><strong>@东京买手 saki</strong><span class="stamp">Weibo · 23 min</span></div>
+        <div class="quote">今天银座 Chanel 本店 25 黑色小号还有一只，限购一只，店员说下午可能就走了。退税后 ¥41,200。</div>
+        <div class="feed-foot"><span>Verified · AI 0.94</span><a href="#">View Source ↗</a></div>
+      </div>
+    </div>
+    <div class="feed-item">
+      <div class="av">𝕏</div>
+      <div class="feed-body">
+        <div class="feed-head"><strong>@ginza_lv_clerk</strong><span class="stamp">X · 1h</span></div>
+        <div class="quote">LV Neverfull MM Damier ebene 在庫あります。本日中なら確実。</div>
+        <div class="feed-foot"><span>Verified · AI 0.91</span><a href="#">View Source ↗</a></div>
+      </div>
+    </div>
+    <div class="feed-item">
+      <div class="av">微</div>
+      <div class="feed-body">
+        <div class="feed-head"><strong>@奢品猎人 lulu</strong><span class="stamp">Weibo · 2h</span></div>
+        <div class="quote">22bag 小号黑金 心斋桥大丸刚补货 3 只，下午两点开门要冲。</div>
+        <div class="feed-foot"><span>Pending · AI 0.78</span><a href="#">View Source ↗</a></div>
+      </div>
+    </div>
+    <div class="feed-item">
+      <div class="av">M</div>
+      <div class="feed-body">
+        <div class="feed-head"><strong>Mercari Bot</strong><span class="stamp">Mercari · 3h</span></div>
+        <div class="quote">Chanel 25 Small Black 95 新 ¥38,900 上架，卖家信用 4.9，9 分钟前。</div>
+        <div class="feed-foot"><span>API · 1.00</span><a href="#">View Listing ↗</a></div>
+      </div>
+    </div>
+    <div class="feed-item">
+      <div class="av">▶</div>
+      <div class="feed-body">
+        <div class="feed-head"><strong>@日杂买买买</strong><span class="stamp">YouTube · 6h</span></div>
+        <div class="quote">成田机场免税 Chanel 25 medium 还有库存，但比银座贵 ¥1,800，不建议机场买。</div>
+        <div class="feed-foot"><span>Verified · AI 0.88</span><a href="#">View Video ↗</a></div>
+      </div>
+    </div>
+    <div class="feed-item">
+      <div class="av">𝕏</div>
+      <div class="feed-body">
+        <div class="feed-head"><strong>@panda_in_tokyo</strong><span class="stamp">X · 8h</span></div>
+        <div class="quote">Coco Handle small 全东京我跑了 6 家都没货，等下一波补。</div>
+        <div class="feed-foot"><span>Verified · AI 0.92</span><a href="#">View Source ↗</a></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="col">
+      <span class="gold">QUMAI · MAISON</span>
+      <span>A PRIVATE ACQUISITION TRACKER</span>
+    </div>
+    <div class="col" style="text-align:right">
+      <span>SOURCES · WEIBO · X · YOUTUBE · MERCARI · OFFICIAL</span>
+      <span>EVERY FIGURE · TRACEABLE · TIMESTAMPED</span>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

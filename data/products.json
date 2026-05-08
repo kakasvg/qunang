@@ -1,0 +1,68 @@
+{
+  "_meta": {
+    "doc": "关注款主表。手维护。key 用 brand_modelnickname_size_color_hardware 形式。",
+    "schema_version": 1,
+    "fields": {
+      "brand": "品牌",
+      "name_cn": "中文展示名",
+      "name_jp": "日文（日本店内沟通用）",
+      "size": "尺寸",
+      "color": "颜色",
+      "hardware": "五金（金扣/银扣/etc，可选）",
+      "official_price_cn": "中国官方价 CNY，作为价差基线",
+      "target_price_cny": "心理目标价 CNY，命中触发推送",
+      "mercari_keywords": "Mercari 搜索关键词数组",
+      "watch": "是否关注（false 则不参与推送）"
+    }
+  },
+
+  "chanel_25_small_black": {
+    "brand": "CHANEL",
+    "name_cn": "Chanel 25 Small 黑色小牛皮",
+    "name_jp": "シャネル 25 スモール ブラック カーフスキン",
+    "size": "Small",
+    "color": "黑色",
+    "official_price_cn": 49000,
+    "target_price_cny": 42000,
+    "mercari_keywords": ["シャネル 25", "Chanel 25 small", "シャネル25 スモール"],
+    "watch": true
+  },
+
+  "chanel_22bag_small_black_gold": {
+    "brand": "CHANEL",
+    "name_cn": "Chanel 22Bag Small 黑金",
+    "name_jp": "シャネル 22 バッグ スモール ブラック ゴールド",
+    "size": "Small",
+    "color": "黑色",
+    "hardware": "金扣",
+    "official_price_cn": 45600,
+    "target_price_cny": 38000,
+    "mercari_keywords": ["シャネル 22", "Chanel 22bag small"],
+    "watch": true
+  },
+
+  "lv_neverfull_mm_damier_ebene": {
+    "brand": "LV",
+    "name_cn": "LV Neverfull MM Damier Ebene",
+    "name_jp": "ルイ・ヴィトン ネヴァーフル MM ダミエ・エベヌ",
+    "size": "MM",
+    "color": "Damier Ebene",
+    "official_price_cn": 19500,
+    "target_price_cny": 16500,
+    "mercari_keywords": ["ネヴァーフル MM", "Neverfull MM Damier"],
+    "watch": true
+  },
+
+  "chanel_coco_handle_small_caviar": {
+    "brand": "CHANEL",
+    "name_cn": "Chanel Coco Handle Small Caviar（昵称'黄牛角'？待用户确认）",
+    "name_jp": "ココ ハンドル スモール キャビア",
+    "size": "Small",
+    "color": "Caviar 黑/米色",
+    "official_price_cn": 58500,
+    "target_price_cny": 50000,
+    "mercari_keywords": ["ココハンドル", "Coco Handle small"],
+    "watch": true,
+    "_note": "用户提到的'黄牛角'尚未确认对应款，先按 Coco Handle 占位"
+  }
+}

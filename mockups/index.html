@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>QuMai · UI 三套对比</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"PingFang SC",sans-serif;background:#f4f4f0;color:#1a1a1a;padding:48px 32px;min-height:100vh}
+  .wrap{max-width:1100px;margin:0 auto}
+  h1{font-size:36px;letter-spacing:-1px;margin-bottom:8px}
+  .sub{color:#666;margin-bottom:40px;font-size:14px;line-height:1.6}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.08);transition:all .25s;text-decoration:none;color:inherit;display:block}
+  .card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+  .preview{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:900;letter-spacing:-2px;position:relative;overflow:hidden}
+  .preview.fashion{background:#f5f1ea;color:#0e0e0e;border-bottom:6px solid #0e0e0e}
+  .preview.fashion::after{content:"VOL.001";position:absolute;bottom:12px;right:16px;font-size:10px;letter-spacing:3px;font-family:Helvetica;font-weight:400}
+  .preview.cute{background:linear-gradient(135deg,#ffeef5,#e0d4ff);color:#ff7eb6}
+  .preview.cute::after{content:"♡";position:absolute;bottom:12px;right:16px;font-size:32px}
+  .preview.luxe{background:#0c0d0a;color:#c8a96a;font-family:Didot,serif;font-weight:300}
+  .preview.luxe::after{content:"— MAISON —";position:absolute;bottom:14px;right:16px;font-size:9px;letter-spacing:4px;font-family:Helvetica}
+  .meta{padding:20px}
+  .meta h3{font-size:18px;margin-bottom:6px}
+  .meta p{font-size:13px;color:#666;line-height:1.5}
+  .tags{margin-top:10px;display:flex;gap:6px;flex-wrap:wrap}
+  .tag{font-size:11px;padding:2px 8px;background:#f0ede5;border-radius:8px;color:#666}
+  .note{margin-top:48px;padding:20px;background:#fff;border-radius:12px;font-size:13px;color:#444;line-height:1.7}
+  .note h4{margin-bottom:8px;font-size:14px}
+  .note ul{padding-left:20px;margin-top:6px}
+  .note code{background:#f0ede5;padding:1px 6px;border-radius:4px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>去買 QuMai · UI 三套对比</h1>
+  <p class="sub">同一份数据（Chanel 25 Small / 22Bag / Coco Handle 等占位）三种视觉语言。点开看完整页面。<br>所有数据带 🔗 溯源链接位（链接为占位，未接真实抓取）。</p>
+
+  <div class="grid">
+    <a class="card" href="01-fashion.html" target="_blank">
+      <div class="preview fashion">QUMAI</div>
+      <div class="meta">
+        <h3>① 时尚杂志风</h3>
+        <p>米白纸感 + 黑红配色，衬线大字号，编辑部排版。强调"权威感、信息密度"，适合长期监控用。</p>
+        <div class="tags"><span class="tag">Editorial</span><span class="tag">Serif</span><span class="tag">高密度</span></div>
+      </div>
+    </a>
+
+    <a class="card" href="02-cute.html" target="_blank">
+      <div class="preview cute">去買 ♡</div>
+      <div class="meta">
+        <h3>② 可爱粉嫩风</h3>
+        <p>粉紫渐变 + 圆角 + emoji + 贴纸效果。轻盈活泼，看一眼就知道是"买买买"工具，适合日常打开心情好。</p>
+        <div class="tags"><span class="tag">Pastel</span><span class="tag">Rounded</span><span class="tag">轻量</span></div>
+      </div>
+    </a>
+
+    <a class="card" href="03-luxe.html" target="_blank">
+      <div class="preview luxe">QUMAI</div>
+      <div class="meta">
+        <h3>③ 高奢暗夜风</h3>
+        <p>深黑 + 香槟金 + 翡翠绿，Didot 衬线，Art Deco 边角。对标品牌官网质感，"私人收藏簿"的感觉。</p>
+        <div class="tags"><span class="tag">Maison</span><span class="tag">Dark</span><span class="tag">Gold</span></div>
+      </div>
+    </a>
+  </div>
+
+  <div class="note">
+    <h4>📌 当前 mock 里的占位数据需要你确认</h4>
+    <ul>
+      <li><b>"黄牛角"</b>：搜不到对应款，先按 Coco Handle 占位 — 你确认是哪只？</li>
+      <li><b>"callray all"</b>：拼写读不出 — 你再发一遍？</li>
+      <li><b>代购博主</b>：图里 @东京买手 saki / @奢品猎人 lulu 等都是占位 ID — 真实账号需要你给</li>
+      <li><b>具体数字</b>：均为示例（每张图都标了 <code>DEMO · 示例数据</code>），跑通抓取后会替换为真实观察值</li>
+    </ul>
+    <h4 style="margin-top:14px">下一步</h4>
+    <ul>
+      <li>你选哪一套（或者要混搭）→ 我把它升级成可跑的页面</li>
+      <li>给我 3-5 个具体款（含尺寸、颜色、五金）→ 我建产品主表</li>
+      <li>给我 3-5 个微博/X 博主 ID → 我配 RSSHub 路由跑首次抓取</li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

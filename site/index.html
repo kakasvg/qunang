@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>去買 ♡ QuMai · Cute Edition v2</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  :root{
+    --pink:#ffd5e5; --pink-deep:#ff7eb6; --pink-soft:#ffeef5;
+    --lav:#e0d4ff; --lav-deep:#a78bfa;
+    --cream:#fff8f0; --mint:#c8f1e0; --mint-deep:#1d6a3e;
+    --ink:#5b3a52; --muted:#a89aa6;
+    --gold:#f4c430; --warn:#ff9966;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{
+    background:linear-gradient(135deg,var(--pink-soft) 0%,#fff 50%,var(--lav) 100%);
+    background-attachment:fixed;
+    color:var(--ink);
+    font-family:"PingFang SC","Hiragino Sans",-apple-system,"Helvetica Neue",sans-serif;
+    min-height:100vh;
+  }
+  .wrap{max-width:1280px;margin:0 auto;padding:24px 32px 80px}
+
+  /* Topbar */
+  .topbar{display:flex;justify-content:space-between;align-items:center;background:#fff;border-radius:24px;padding:16px 24px;box-shadow:0 4px 20px rgba(255,126,182,.15);margin-bottom:24px;flex-wrap:wrap;gap:12px}
+  .logo{font-size:30px;font-weight:900;background:linear-gradient(90deg,var(--pink-deep),var(--lav-deep));-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-1px}
+  .logo .heart{display:inline-block;color:var(--pink-deep);-webkit-text-fill-color:var(--pink-deep);font-size:24px;animation:beat 1.4s infinite}
+  @keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+  .nav-pills{display:flex;gap:6px;flex-wrap:wrap}
+  .pill{padding:8px 14px;border-radius:20px;font-size:13px;background:var(--pink-soft);color:var(--ink);text-decoration:none;font-weight:600;transition:all .2s;cursor:pointer;border:none}
+  .pill:hover{background:var(--pink);transform:translateY(-2px)}
+  .pill.on{background:var(--pink-deep);color:#fff}
+  .rate{font-size:12px;color:var(--muted);background:var(--cream);padding:8px 14px;border-radius:16px}
+  .rate b{color:var(--pink-deep)}
+
+  /* Demo bar */
+  .demo-bar{background:#fff8e0;border:1px dashed var(--gold);border-radius:14px;padding:10px 16px;font-size:12px;color:#7a5a00;margin-bottom:20px;text-align:center}
+
+  /* HERO with carousel */
+  .hero{display:grid;grid-template-columns:1fr 1.1fr;gap:24px;background:#fff;border-radius:32px;padding:32px;box-shadow:0 8px 32px rgba(255,126,182,.18);position:relative;overflow:hidden;margin-bottom:32px}
+  .hero::before{content:"";position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:var(--pink);border-radius:50%;opacity:.4;pointer-events:none}
+
+  .carousel{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:1/1.05;background:#f0e9f5}
+  .car-track{display:flex;width:100%;height:100%;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+  .car-slide{flex:0 0 100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:120px;position:relative;color:#fff;text-shadow:0 4px 16px rgba(0,0,0,.15)}
+  .car-slide .label{position:absolute;bottom:16px;left:16px;background:rgba(255,255,255,.85);color:var(--ink);font-size:11px;padding:4px 10px;border-radius:10px;font-weight:600}
+  .car-slide .ph-badge{position:absolute;top:16px;left:16px;background:rgba(0,0,0,.6);color:#fff;font-size:10px;padding:3px 8px;border-radius:8px;letter-spacing:1px}
+  .car-dots{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:6px}
+  .car-dots button{width:8px;height:8px;border-radius:50%;border:none;background:rgba(255,255,255,.5);cursor:pointer;padding:0}
+  .car-dots button.on{background:#fff;width:20px;border-radius:4px}
+  .car-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.85);border:none;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:18px;color:var(--ink);box-shadow:0 2px 8px rgba(0,0,0,.15)}
+  .car-arrow.l{left:10px}.car-arrow.r{right:10px}
+  .car-counter{position:absolute;top:14px;right:14px;background:rgba(0,0,0,.55);color:#fff;font-size:11px;padding:3px 8px;border-radius:10px}
+
+  .hero-info{display:flex;flex-direction:column;justify-content:center}
+  .kicker{font-size:13px;color:var(--pink-deep);font-weight:700;margin-bottom:8px}
+  .hero h1{font-size:38px;line-height:1.1;margin-bottom:8px;letter-spacing:-1px}
+  .hero h1 .em{color:var(--pink-deep)}
+  .hero .sub{color:var(--muted);margin-bottom:20px;font-size:14px;line-height:1.6}
+  .prices{display:flex;flex-direction:column;gap:8px}
+  .price-row{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;padding:12px 16px;background:var(--cream);border-radius:16px;font-size:13px;transition:all .2s}
+  .price-row:hover{background:var(--pink-soft)}
+  .price-row.best{background:linear-gradient(90deg,var(--pink-soft),#fff);border:2px solid var(--pink-deep)}
+  .price-row.best .num{color:var(--pink-deep)}
+  .loc{font-weight:600;display:flex;align-items:center;gap:8px}
+  .loc .ico{width:28px;height:28px;background:#fff;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:14px}
+  .loc small{display:block;color:var(--muted);font-size:11px;font-weight:400;margin-top:2px}
+  .num{font-weight:800;font-size:18px}
+  .src-link{font-size:11px;color:var(--lav-deep);text-decoration:none;background:#fff;padding:4px 8px;border-radius:8px;font-weight:600}
+  .savings{display:inline-block;background:var(--mint);color:var(--mint-deep);padding:2px 6px;border-radius:6px;font-size:11px;margin-left:4px}
+
+  /* Section title */
+  .h2{display:flex;justify-content:space-between;align-items:flex-end;margin:36px 0 16px;flex-wrap:wrap;gap:8px}
+  .h2 h2{font-size:22px;font-weight:900}
+  .h2 h2 .deco{display:inline-block;width:6px;height:22px;background:var(--pink-deep);border-radius:3px;margin-right:10px;vertical-align:-4px}
+  .h2 .more{font-size:12px;color:var(--lav-deep);text-decoration:none;font-weight:600}
+
+  /* Saving guide panel */
+  .save-panel{background:#fff;border-radius:24px;padding:24px;box-shadow:0 4px 16px rgba(255,126,182,.12);margin-bottom:8px}
+  .save-mech{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+  .mech{background:linear-gradient(135deg,var(--pink-soft),#fff);border-radius:16px;padding:16px;text-align:center}
+  .mech .icon{font-size:32px;margin-bottom:6px}
+  .mech .name{font-weight:800;font-size:15px;margin-bottom:4px}
+  .mech .rate{display:inline-block;background:var(--pink-deep);color:#fff;font-size:12px;padding:2px 10px;border-radius:10px;margin-bottom:6px}
+  .mech .desc{font-size:11px;color:var(--muted);line-height:1.5}
+
+  .matrix{font-size:13px}
+  .matrix table{width:100%;border-collapse:collapse}
+  .matrix th,.matrix td{padding:10px 8px;text-align:center;border-bottom:1px solid #f5edf2}
+  .matrix th{background:var(--pink-soft);font-weight:700;font-size:12px;color:var(--ink)}
+  .matrix th:first-child,.matrix td:first-child{text-align:left;font-weight:700;padding-left:14px}
+  .matrix td .y{color:var(--mint-deep);font-weight:700}
+  .matrix td .n{color:#c44;font-weight:700}
+  .matrix td .m{color:var(--warn);font-weight:700}
+  .matrix .note{font-size:11px;color:var(--muted);margin-top:10px;padding:0 8px}
+
+  /* Top 30 grid */
+  .grid30{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+  @media (max-width:1100px){.grid30{grid-template-columns:repeat(4,1fr)}}
+  @media (max-width:880px){.grid30{grid-template-columns:repeat(3,1fr)}}
+  .pcard{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(255,126,182,.1);transition:all .25s;cursor:pointer;display:flex;flex-direction:column}
+  .pcard:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(255,126,182,.2)}
+  .pcard .pimg{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;font-size:54px;position:relative;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.15)}
+  .pcard .rank{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.65);color:#fff;font-size:11px;font-weight:800;padding:3px 8px;border-radius:10px;letter-spacing:1px}
+  .pcard .rank.top3{background:var(--gold);color:#5b3a00}
+  .pcard .pdots{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:4px}
+  .pcard .pdots i{width:5px;height:5px;background:rgba(255,255,255,.55);border-radius:50%;display:block}
+  .pcard .pdots i.on{background:#fff;width:14px;border-radius:3px}
+  .pcard .ph{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.5);color:#fff;font-size:9px;padding:2px 6px;border-radius:6px}
+  .pcard .pbody{padding:12px;flex:1;display:flex;flex-direction:column;gap:6px}
+  .pcard .pbrand{font-size:10px;color:var(--lav-deep);font-weight:800;letter-spacing:1.5px}
+  .pcard .pname{font-size:13px;font-weight:700;line-height:1.25;min-height:32px}
+  .pcard .ppx{display:flex;justify-content:space-between;align-items:baseline;margin-top:auto}
+  .pcard .ppx .now{font-size:15px;font-weight:900;color:var(--pink-deep)}
+  .pcard .ppx .delta{font-size:11px;font-weight:700}
+  .pcard .ppx .delta.neg{color:var(--mint-deep)}
+  .pcard .ppx .delta.warn{color:#c44}
+  .pcard .pwhere{font-size:10px;color:var(--muted)}
+
+  /* Feed */
+  .feed{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:780px){.feed{grid-template-columns:1fr}}
+  .feed-item{background:#fff;border-radius:20px;padding:14px 16px;display:flex;gap:12px;box-shadow:0 2px 12px rgba(255,126,182,.08);position:relative}
+  .feed-item.fresh{border-left:4px solid var(--pink-deep)}
+  .feed-item.alert{border-left:4px solid var(--warn)}
+  .av{width:40px;height:40px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;background:linear-gradient(135deg,var(--pink),var(--lav))}
+  .feed-body{flex:1;font-size:13px;line-height:1.5}
+  .feed-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;flex-wrap:wrap;gap:6px}
+  .feed-head strong{font-size:13px}
+  .platform{font-size:10px;background:var(--cream);padding:2px 8px;border-radius:8px;color:var(--muted);font-weight:600}
+  .platform.weibo{background:#ffe5e5;color:#c44}
+  .platform.x{background:#e8e8e8;color:#333}
+  .platform.youtube{background:#ffe5e5;color:#c00}
+  .platform.mercari{background:#ffe9d9;color:#c45}
+  .platform.xhs{background:#ffe5ea;color:#d4365b}
+  .platform.bili{background:#e0f4ff;color:#1a8cc2}
+  .quote{color:var(--ink)}
+  .tagline{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
+  .tagline span{font-size:10px;padding:2px 7px;border-radius:7px;background:var(--pink-soft);color:var(--pink-deep);font-weight:700}
+  .tagline span.alert{background:#ffe9d9;color:#c45}
+  .tagline span.fresh{background:var(--mint);color:var(--mint-deep)}
+  .feed-foot{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:11px;color:var(--muted)}
+  .feed-foot a{color:var(--lav-deep);text-decoration:none;font-weight:600}
+  .ago{font-weight:700}
+  .ago.now{color:var(--pink-deep)}
+
+  /* Float button */
+  .float-btn{position:fixed;bottom:32px;right:32px;background:linear-gradient(135deg,var(--pink-deep),var(--lav-deep));color:#fff;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 8px 24px rgba(255,126,182,.4);cursor:pointer;border:none;z-index:20}
+
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:48px;padding:24px}
+  footer span{display:inline-block;background:#fff;padding:8px 16px;border-radius:20px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="logo">去買 <span class="heart">♡</span> QuMai</div>
+    <div class="nav-pills">
+      <button class="pill on">🏠 首页</button>
+      <button class="pill">🏆 爆款 TOP30</button>
+      <button class="pill">💰 省钱攻略</button>
+      <button class="pill">📡 现货</button>
+      <button class="pill">⭐ 我的关注</button>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <div class="rate" id="updTick">🟢 <b id="updMin">10</b> 分钟前更新</div>
+      <div class="rate">💴 100¥ = <b>4.71</b> 元</div>
+    </div>
+  </div>
+
+  <div class="demo-bar">⚠️ 当前为视觉 mock — 所有图片为占位（需后续抓取真实款图），价格为示例数字。仅展示 UI 与信息架构。</div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="carousel" id="heroCar">
+      <div class="car-track">
+        <div class="car-slide" style="background:linear-gradient(135deg,#3a2a35,#1a0e15)">
+          <span>👜</span>
+          <span class="ph-badge">📷 占位 · 待抓取</span>
+          <span class="label">正面 · Front View</span>
+        </div>
+        <div class="car-slide" style="background:linear-gradient(135deg,#5a3a4a,#2a1a25)">
+          <span>🛍️</span>
+          <span class="ph-badge">📷 占位 · 待抓取</span>
+          <span class="label">侧面 · Side View</span>
+        </div>
+        <div class="car-slide" style="background:linear-gradient(135deg,#4a3540,#1a1018)">
+          <span>✨</span>
+          <span class="ph-badge">📷 占位 · 待抓取</span>
+          <span class="label">细节 · Detail</span>
+        </div>
+      </div>
+      <button class="car-arrow l" onclick="heroPrev()">‹</button>
+      <button class="car-arrow r" onclick="heroNext()">›</button>
+      <span class="car-counter" id="heroCount">1 / 3</span>
+      <div class="car-dots" id="heroDots">
+        <button class="on" onclick="heroGo(0)"></button>
+        <button onclick="heroGo(1)"></button>
+        <button onclick="heroGo(2)"></button>
+      </div>
+    </div>
+    <div class="hero-info">
+      <div class="kicker">✨ 本周最值得入 ✨</div>
+      <h1>Chanel <span class="em">25</span> Small<br>黑色小牛皮</h1>
+      <p class="sub">8 个数据源观察中 ✿ 日本到手价比国内便宜最多 ¥7,800 ✿ 银座本店今天还有现货</p>
+      <div class="prices">
+        <div class="price-row best">
+          <div class="loc"><span class="ico">🇯🇵</span><div>银座 三越本店<small>退税后到手 · Chanel 直营</small></div></div>
+          <div class="num">¥41,200 <span class="savings">省 ¥7,800</span></div>
+          <a class="src-link" href="#">微博 🔗</a>
+        </div>
+        <div class="price-row">
+          <div class="loc"><span class="ico">🇯🇵</span><div>大阪 大丸<small>退税后</small></div></div>
+          <div class="num">¥42,100 <span class="savings">省 ¥6,900</span></div>
+          <a class="src-link" href="#">X 🔗</a>
+        </div>
+        <div class="price-row">
+          <div class="loc"><span class="ico">✈️</span><div>成田机场免税<small>DUTY FREE</small></div></div>
+          <div class="num">¥43,500</div>
+          <a class="src-link" href="#">YT 🔗</a>
+        </div>
+        <div class="price-row">
+          <div class="loc"><span class="ico">🇨🇳</span><div>中国官方<small>北京 SKP</small></div></div>
+          <div class="num">¥49,000</div>
+          <a class="src-link" href="#">官网 🔗</a>
+        </div>
+        <div class="price-row">
+          <div class="loc"><span class="ico">♻️</span><div>大黑屋 95新<small>东京新宿 · 中古</small></div></div>
+          <div class="num">¥38,900 <span class="savings">省 ¥10,100</span></div>
+          <a class="src-link" href="#">大黑屋 🔗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 省钱攻略 -->
+  <div class="h2">
+    <h2><span class="deco"></span>日本买包省钱机制 💰</h2>
+    <a class="more" href="#">详细攻略 →</a>
+  </div>
+  <div class="save-panel">
+    <div class="save-mech">
+      <div class="mech">
+        <div class="icon">🧾</div>
+        <div class="name">免税</div>
+        <div class="rate">−10%</div>
+        <div class="desc">短期游客凭护照消费税豁免，几乎所有奢侈品店都支持。基础且稳的省钱方式</div>
+      </div>
+      <div class="mech">
+        <div class="icon">💳</div>
+        <div class="name">银联结算</div>
+        <div class="rate">−1~2%</div>
+        <div class="desc">银联卡当日一次结算，比 Visa/Master 美元中转少一道汇损，约省 1-2%</div>
+      </div>
+      <div class="mech">
+        <div class="icon">♻️</div>
+        <div class="name">中古店</div>
+        <div class="rate">−15~40%</div>
+        <div class="desc">大黑屋 / RECLO / Brand Off / Komehyo 二手市场，95新成色与新品差价巨大</div>
+      </div>
+      <div class="mech">
+        <div class="icon">🎫</div>
+        <div class="name">百货 5% 券</div>
+        <div class="rate">−5%</div>
+        <div class="desc">三越伊势丹 App 券 / 高岛屋实体卡。⚠️ Chanel/LV/VCA 等大牌多被排除</div>
+      </div>
+    </div>
+
+    <div class="matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>品牌</th>
+            <th>免税 10%</th>
+            <th>银联结算</th>
+            <th>三越伊势丹 5%</th>
+            <th>高岛屋 5%</th>
+            <th>中古市场</th>
+            <th>典型综合到手</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Chanel</td><td><span class="y">✓</span></td><td><span class="y">✓</span></td><td><span class="n">✗ 排除</span></td><td><span class="n">✗ 排除</span></td><td><span class="y">✓ 大黑屋</span></td><td>−10~12%（新品）</td></tr>
+          <tr><td>Louis Vuitton</td><td><span class="y">✓</span></td><td><span class="y">✓</span></td><td><span class="n">✗ 排除</span></td><td><span class="n">✗ 排除</span></td><td><span class="y">✓ 中古丰富</span></td><td>−10~12%（新品）</td></tr>
+          <tr><td>Hermès</td><td><span class="y">✓</span></td><td><span class="y">✓</span></td><td><span class="n">✗ 排除</span></td><td><span class="n">✗ 排除</span></td><td><span class="y">✓ RECLO</span></td><td>新品需配货 · 中古差价大</td></tr>
+          <tr><td>Dior / Celine</td><td><span class="y">✓</span></td><td><span class="y">✓</span></td><td><span class="m">部分</span></td><td><span class="m">部分</span></td><td><span class="y">✓</span></td><td>−10~15%</td></tr>
+          <tr><td>Loewe / BV / Gucci</td><td><span class="y">✓</span></td><td><span class="y">✓</span></td><td><span class="y">✓ 大概率</span></td><td><span class="y">✓ 大概率</span></td><td><span class="y">✓</span></td><td>−15~17%</td></tr>
+        </tbody>
+      </table>
+      <div class="note">📌 数据基于公开攻略整理（三越伊势丹官网 + japanshopping.org）。各店执行细则可能微调，到店前在该百货官网或 App 内确认当日适用品牌。</div>
+    </div>
+  </div>
+
+  <!-- TOP 30 -->
+  <div class="h2">
+    <h2><span class="deco"></span>爆款 TOP 30 · 综合中日价差 + 关注度排行</h2>
+    <a class="more" href="#">查看全部 →</a>
+  </div>
+  <div class="grid30" id="grid30"></div>
+
+  <!-- FEED -->
+  <div class="h2">
+    <h2><span class="deco"></span>现货情报 📡 · 最近 24 小时</h2>
+    <a class="more" href="#">全部 47 条 →</a>
+  </div>
+  <div class="feed" id="feed"></div>
+
+  <footer><span>去買 ♡ QuMai · 2026 · 一个买包小工具 · 数据全部带溯源链接</span></footer>
+</div>
+<button class="float-btn" title="添加关注">+</button>
+
+<script>
+/* ---------- 上次更新计时器 ---------- */
+let updMin=10;
+const updEl=document.getElementById('updMin');
+const tickEl=document.getElementById('updTick');
+function refreshTick(){
+  updEl.textContent=updMin;
+  if(updMin<10){tickEl.style.background='#e8fff0';tickEl.firstChild.textContent='🟢 '}
+  else if(updMin<30){tickEl.style.background='#fff8e0';tickEl.firstChild.textContent='🟡 '}
+  else{tickEl.style.background='#ffe9d9';tickEl.firstChild.textContent='🔴 '}
+}
+refreshTick();
+setInterval(()=>{updMin++;refreshTick()},60000);
+// 模拟每 10 分钟拉一次新数据，重置为 0
+setInterval(()=>{updMin=0;refreshTick()},10*60*1000);
+
+/* ---------- HERO carousel ---------- */
+let heroIdx=0;
+const heroTrack=document.querySelector('#heroCar .car-track');
+const heroDots=document.querySelectorAll('#heroDots button');
+const heroCount=document.getElementById('heroCount');
+function heroGo(i){
+  heroIdx=(i+3)%3;
+  heroTrack.style.transform=`translateX(-${heroIdx*100}%)`;
+  heroDots.forEach((d,k)=>d.classList.toggle('on',k===heroIdx));
+  heroCount.textContent=`${heroIdx+1} / 3`;
+}
+function heroNext(){heroGo(heroIdx+1)}
+function heroPrev(){heroGo(heroIdx-1)}
+setInterval(()=>heroGo(heroIdx+1),4500);
+
+/* ---------- TOP 30 data ---------- */
+const top30=[
+  // brand, name, sizeColor, jpyCny, cnyCny, where, src, gradient, emoji
+  {b:'CHANEL', n:'25 Bag Small',     v:'黑色小牛皮',    p:41200,o:49000,w:'银座 三越',     s:'微博', g:['#3a2a35','#1a0e15'], e:'👜'},
+  {b:'CHANEL', n:'22 Bag Small',     v:'黑金',          p:38200,o:45600,w:'银座本店',       s:'微博', g:['#3a2530','#1a0a15'], e:'🛍️'},
+  {b:'CHANEL', n:'CF Medium',        v:'黑色羊皮金扣',  p:74900,o:89000,w:'大阪大丸',       s:'X',    g:['#2a1a20','#100610'], e:'💼'},
+  {b:'LV',     n:'Neverfull MM',     v:'Damier Ebene',  p:17100,o:19500,w:'大阪高岛屋',     s:'微博', g:['#5a3525','#2a1a10'], e:'👜'},
+  {b:'LV',     n:'Speedy 25',        v:'Monogram',      p:13800,o:15700,w:'银座本店',       s:'X',    g:['#4a3520','#241810'], e:'👜'},
+  {b:'HERMÈS', n:'Picotin 18',       v:'Togo · Etoupe', p:21500,o:25000,w:'银座 Maison',    s:'微博', g:['#5a4530','#2a1f15'], e:'🪣'},
+  {b:'CHANEL', n:'25 Bag Medium',    v:'黑色小牛皮',    p:46800,o:55000,w:'新宿伊势丹',     s:'XHS',  g:['#382030','#180a14'], e:'👛'},
+  {b:'CHANEL', n:'CF Mini',          v:'黑色羊皮金扣',  p:54200,o:62000,w:'银座本店',       s:'微博', g:['#321a25','#140510'], e:'👜'},
+  {b:'CHANEL', n:'Coco Handle Small',v:'Caviar 黄牛角', p:51200,o:58500,w:'5 家全缺货',     s:'多源', g:['#3d2820','#1a0e08'], e:'🐮', oos:true},
+  {b:'CHANEL', n:'WOC',              v:'黑色羊皮',      p:18900,o:21800,w:'大阪心斋桥',     s:'X',    g:['#2a1a20','#0a0408'], e:'💳'},
+  {b:'LV',     n:'OnTheGo MM',       v:'Empreinte 黑',  p:23800,o:27300,w:'银座旗舰店',     s:'微博', g:['#3a2818','#1a0e08'], e:'🛒'},
+  {b:'LV',     n:'Capucines BB',     v:'Taurillon 黑',  p:42100,o:48500,w:'银座本店',       s:'X',    g:['#2a1f18','#100c08'], e:'👜'},
+  {b:'LV',     n:'Pochette Métis',   v:'Monogram',      p:18200,o:21000,w:'大阪',           s:'微博', g:['#4a3520','#1f1810'], e:'📒'},
+  {b:'LV',     n:'Alma BB',          v:'Epi 黑',        p:14500,o:16800,w:'银座',           s:'XHS',  g:['#251818','#0a0608'], e:'👛'},
+  {b:'HERMÈS', n:'Birkin 25',        v:'Togo · 配货',   p:115000,o:0,w:'配货中 · 不公开',  s:'代购', g:['#5a4030','#2a1c14'], e:'💎', spec:true},
+  {b:'HERMÈS', n:'Kelly 25 Sellier', v:'Epsom · 配货',  p:108000,o:0,w:'配货中 · 不公开',  s:'代购', g:['#4a3525','#1f1610'], e:'👜', spec:true},
+  {b:'HERMÈS', n:'Lindy 26',         v:'Clemence',      p:48500,o:55000,w:'银座 Maison',    s:'X',    g:['#3d2d20','#1a1008'], e:'🛍️'},
+  {b:'DIOR',   n:'Lady Dior Small',  v:'Cannage 黑',    p:42100,o:48500,w:'新宿伊势丹',     s:'微博', g:['#1a1a1a','#000000'], e:'🖤'},
+  {b:'DIOR',   n:'Book Tote Medium', v:'Oblique',       p:28900,o:32500,w:'银座',           s:'XHS',  g:['#3a2520','#1a0e08'], e:'📚'},
+  {b:'DIOR',   n:'Saddle',           v:'Oblique 经典',  p:31200,o:36000,w:'大阪',           s:'微博', g:['#3d2818','#1a1008'], e:'🐎'},
+  {b:'CELINE', n:'Triomphe Teen',    v:'Smooth Calf 黑',p:25800,o:29500,w:'银座 Maison',    s:'X',    g:['#1f1a14','#0a0805'], e:'⚜️'},
+  {b:'CELINE', n:'Belt Bag Mini',    v:'灰褐 Tan',      p:24500,o:28000,w:'新宿',           s:'微博', g:['#3a2d20','#1a1108'], e:'👜'},
+  {b:'CELINE', n:'Luggage Nano',     v:'Drummed Calf',  p:28800,o:33000,w:'大阪心斋桥',     s:'XHS',  g:['#1a1a1a','#080808'], e:'🧳'},
+  {b:'LOEWE',  n:'Puzzle Small',     v:'Classic Calf',  p:21500,o:25500,w:'银座 GINZA SIX', s:'微博', g:['#2a201a','#0a0805'], e:'🧩'},
+  {b:'LOEWE',  n:'Hammock Small',    v:'Classic Calf',  p:23400,o:27200,w:'银座',           s:'X',    g:['#3a2818','#1a0e08'], e:'🪢'},
+  {b:'GUCCI',  n:'Bamboo 1947 S',    v:'Smooth Leather',p:24500,o:28500,w:'银座 Tower',     s:'微博', g:['#5a3a25','#2a1a10'], e:'🎋'},
+  {b:'GUCCI',  n:'Jackie 1961 Small',v:'Black Calf',    p:21800,o:25500,w:'大阪',           s:'XHS',  g:['#1f1810','#080604'], e:'👜'},
+  {b:'BV',     n:'Cassette',         v:'Intrecciato 黑',p:22500,o:26000,w:'银座 Maison',    s:'X',    g:['#1a1a1a','#080808'], e:'🟫'},
+  {b:'BV',     n:'Andiamo Small',    v:'Intrecciato',   p:34500,o:39800,w:'新宿伊势丹',     s:'微博', g:['#3a2818','#1a0e08'], e:'👜'},
+  {b:'GOYARD', n:'Saint Louis PM',   v:'Black/Tan',     p:9800, o:11500,w:'银座 Goyard',    s:'X',    g:['#2a1a14','#100a08'], e:'🛍️'},
+];
+
+const grid=document.getElementById('grid30');
+top30.forEach((p,i)=>{
+  const rank=i+1;
+  const diff=p.spec?'配货':(p.oos?'缺货中':((p.p-p.o*0.143).toFixed(0))); // p.o is CNY, rough convert
+  const cnyJp=Math.round(p.p*0.0471);
+  const cnyDelta=p.o?cnyJp-p.o:null;
+  const card=document.createElement('div');
+  card.className='pcard';
+  const grad=`linear-gradient(135deg,${p.g[0]},${p.g[1]})`;
+  let badge='';
+  if(p.spec) badge='<span class="rank top3" style="background:#999;color:#fff">🔒 配货</span>';
+  else if(p.oos) badge='<span class="rank" style="background:#c44">缺货</span>';
+  else badge=`<span class="rank ${rank<=3?'top3':''}">No.${rank}</span>`;
+
+  let priceLine;
+  if(p.spec){
+    priceLine=`<div class="ppx"><span class="now" style="color:var(--muted);font-size:13px">询价</span><span class="delta warn">需配货</span></div>`;
+  } else if(p.oos){
+    priceLine=`<div class="ppx"><span class="now" style="color:var(--muted);font-size:13px">¥${p.p.toLocaleString()}</span><span class="delta warn">▲ 等补</span></div>`;
+  } else {
+    const sign=cnyDelta<0?'−':'+';
+    priceLine=`<div class="ppx"><span class="now">¥${cnyJp.toLocaleString()}</span><span class="delta neg">${sign}¥${Math.abs(cnyDelta).toLocaleString()}</span></div>`;
+  }
+
+  card.innerHTML=`
+    <div class="pimg" style="background:${grad}">
+      ${badge}
+      <span class="ph">📷 1/3</span>
+      <span>${p.e}</span>
+      <div class="pdots"><i class="on"></i><i></i><i></i></div>
+    </div>
+    <div class="pbody">
+      <div class="pbrand">${p.b}</div>
+      <div class="pname">${p.n}<br><span style="font-weight:400;color:var(--muted);font-size:11px">${p.v}</span></div>
+      ${priceLine}
+      <div class="pwhere">📍 ${p.w} · ${p.s}</div>
+    </div>`;
+  grid.appendChild(card);
+});
+
+/* ---------- FEED data ---------- */
+const feedData=[
+  {av:'🌸',n:'@东京买手 saki',p:'weibo',ago:'刚刚',agoCls:'now',q:'银座 Chanel 本店 25 黑色小号刚到一只！限购 1，店员说下午可能就走，要冲！',tags:[{t:'🔥 现货',c:'fresh'},{t:'限购',c:'alert'}]},
+  {av:'🗼',n:'@ginza_lv_clerk',p:'x',ago:'5 分钟前',agoCls:'now',q:'LV Neverfull MM Damier ebene 在庫あり、本日中なら確実です。',tags:[{t:'现货',c:'fresh'}],fresh:true},
+  {av:'💎',n:'@奢品猎人 lulu',p:'weibo',ago:'18 分钟前',agoCls:'now',q:'22bag 小号黑金 心斋桥大丸刚补货 3 只，下午两点开门要冲冲冲！',tags:[{t:'补货',c:'fresh'}],fresh:true},
+  {av:'🤖',n:'Mercari Bot',p:'mercari',ago:'27 分钟前',q:'Chanel 25 Small Black 95 新 ¥38,900 上架，卖家信用 4.9，还附原装盒。',tags:[{t:'二手',c:''},{t:'95新',c:''}]},
+  {av:'📺',n:'@日杂买买买',p:'youtube',ago:'1 小时前',q:'测评：成田机场免税 Chanel 25 medium 库存 5+，但比银座贵 ¥1,800，不建议机场买。',tags:[{t:'比价',c:''}]},
+  {av:'🎀',n:'@东京小确幸',p:'xhs',ago:'1 小时前',q:'坐标银座 Coco Handle small caviar 全店缺货，店员说下波到货约 2 周后，可以登记 wishlist。',tags:[{t:'缺货',c:'alert'}],alert:true},
+  {av:'🐼',n:'@panda_in_tokyo',p:'x',ago:'2 小时前',q:'Coco Handle small 全东京我跑了 6 家都没货，等下一波补吧。',tags:[{t:'全城断货',c:'alert'}],alert:true},
+  {av:'📹',n:'@Tokyo Bag Hunter',p:'bili',ago:'3 小时前',q:'B 站直播 — 大黑屋新宿店 Chanel 中古到货 12 只，价格区间 ¥35,000-¥48,000。',tags:[{t:'中古',c:''},{t:'直播',c:'fresh'}]},
+  {av:'🌷',n:'@Mai_purchases',p:'xhs',ago:'4 小时前',q:'Hermès 银座 Lindy 26 etoupe 入手成功！配货 ¥18,000 已凑，含税 ¥48,500，开心！',tags:[{t:'入手',c:'fresh'}]},
+  {av:'🛒',n:'@RECLO Watch',p:'mercari',ago:'5 小时前',q:'RECLO LV Capucines BB 黑色 9 成新 ¥298,000（约 ¥14,000 CNY），比新品省 35%。',tags:[{t:'二手',c:''},{t:'特价',c:'fresh'}]},
+  {av:'💡',n:'@奢品价格观察',p:'weibo',ago:'8 小时前',q:'Chanel 全球 5 月 1 日已涨价 6-8%，目前日本仍是亚洲最低，但低多久不好说。',tags:[{t:'价格预警',c:'alert'}]},
+  {av:'🎬',n:'@日本VLOG生活',p:'youtube',ago:'昨天',q:'Vlog：东京 4 天打卡 12 家奢侈品店，详细记录每家库存与店员态度。完整价格表见简介。',tags:[{t:'攻略',c:''}]},
+  {av:'📍',n:'@Big Daikoku',p:'x',ago:'昨天',q:'大黑屋新宿店今日入库 Chanel 22bag medium 黑金 2 只 / Birkin 30 togo gold 1 只，先到先得。',tags:[{t:'中古',c:''},{t:'稀有',c:'fresh'}]},
+  {av:'🌟',n:'@SaraInJapan',p:'xhs',ago:'昨天',q:'安利一下：高岛屋日本桥店 Loewe Puzzle 用 Shopper Card 5% off + 退税到手 ¥18,200，比官网省 30%！',tags:[{t:'攻略',c:''},{t:'5%券可用',c:'fresh'}]},
+];
+const feed=document.getElementById('feed');
+feedData.forEach(it=>{
+  const el=document.createElement('div');
+  el.className='feed-item'+(it.fresh?' fresh':'')+(it.alert?' alert':'');
+  const tags=it.tags.map(t=>`<span class="${t.c}">${t.t}</span>`).join('');
+  el.innerHTML=`
+    <div class="av">${it.av}</div>
+    <div class="feed-body">
+      <div class="feed-head"><strong>${it.n}</strong><span class="platform ${it.p}">${({weibo:'微博',x:'X',youtube:'YouTube',mercari:'Mercari',xhs:'小红书',bili:'B站'})[it.p]}</span></div>
+      <div class="quote">"${it.q}"</div>
+      <div class="tagline">${tags}</div>
+      <div class="feed-foot"><span class="ago ${it.agoCls||''}">${it.ago}</span><a href="#">查看原帖 🔗</a></div>
+    </div>`;
+  feed.appendChild(el);
+});
+</script>
+</body>
+</html>

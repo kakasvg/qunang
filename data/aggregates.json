@@ -1,0 +1,6 @@
+{
+  "generated_at": "2026-05-08T08:00:00+00:00",
+  "jpy_to_cny": 0.0471,
+  "_note": "首次 cron 跑完会被 aggregator/compute.py 覆盖。这是种子数据。",
+  "products": {}
+}

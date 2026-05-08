@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>去買 — Fashion Edition</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  :root{
+    --ink:#0e0e0e; --paper:#f5f1ea; --cream:#ebe4d6; --rule:#1a1a1a;
+    --accent:#b8442b; --muted:#7a7468;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--paper);color:var(--ink);font-family:"Times New Roman",Georgia,serif}
+  .wrap{max-width:1200px;margin:0 auto;padding:32px 40px}
+
+  /* Masthead */
+  .masthead{border-top:6px solid var(--ink);border-bottom:1px solid var(--ink);padding:16px 0;display:flex;justify-content:space-between;align-items:flex-end}
+  .logo{font-size:64px;letter-spacing:-2px;font-weight:900;font-style:italic}
+  .logo small{font-size:14px;letter-spacing:6px;font-style:normal;font-weight:400;display:block;margin-top:4px}
+  .meta{font-size:11px;letter-spacing:3px;text-transform:uppercase;text-align:right;line-height:1.8}
+
+  /* Nav */
+  nav{display:flex;gap:32px;border-bottom:1px solid var(--ink);padding:14px 0;font-size:11px;letter-spacing:3px;text-transform:uppercase}
+  nav a{color:var(--ink);text-decoration:none;padding-bottom:2px;border-bottom:2px solid transparent}
+  nav a.on{border-bottom-color:var(--accent);color:var(--accent)}
+
+  /* Hero */
+  .hero{display:grid;grid-template-columns:1fr 1.4fr;gap:40px;padding:48px 0;border-bottom:1px solid var(--ink)}
+  .hero-img{aspect-ratio:4/5;background:linear-gradient(135deg,#d4c5a9,#a8927a);position:relative;overflow:hidden}
+  .hero-img::after{content:"CHANEL 25";position:absolute;bottom:24px;left:24px;color:#fff;font-size:42px;font-weight:900;letter-spacing:-1px;mix-blend-mode:overlay}
+  .hero-meta{display:flex;flex-direction:column;justify-content:space-between}
+  .kicker{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+  .hero h1{font-size:88px;line-height:.92;letter-spacing:-3px;font-weight:900;margin-bottom:24px}
+  .hero h1 em{color:var(--accent);font-style:italic}
+  .lede{font-size:18px;line-height:1.55;color:var(--muted);max-width:520px;margin-bottom:32px}
+
+  /* Price comparison panel */
+  .price-panel{border:1px solid var(--ink);background:#fff}
+  .price-panel header{padding:14px 20px;border-bottom:1px solid var(--ink);display:flex;justify-content:space-between;font-size:11px;letter-spacing:3px;text-transform:uppercase}
+  .price-row{display:grid;grid-template-columns:1fr 120px 100px 80px;align-items:center;padding:14px 20px;border-bottom:1px solid #ddd;font-size:14px}
+  .price-row:last-child{border-bottom:none}
+  .loc{font-weight:700}
+  .loc small{display:block;font-weight:400;color:var(--muted);font-size:11px;margin-top:2px;text-transform:uppercase;letter-spacing:1px}
+  .num{font-family:"Times New Roman",serif;font-size:20px;text-align:right;font-weight:700}
+  .diff.neg{color:#1d6a3e}
+  .diff.pos{color:var(--accent)}
+  .src{text-align:right;font-size:11px;color:var(--muted)}
+  .src a{color:var(--muted)}
+  .lowest{background:#fff8e8}
+  .lowest .num{color:var(--accent)}
+
+  /* Section heading */
+  .h2{font-size:13px;letter-spacing:5px;text-transform:uppercase;border-bottom:1px solid var(--ink);padding-bottom:8px;margin:48px 0 24px;display:flex;justify-content:space-between;align-items:flex-end}
+  .h2 .more{font-size:10px;letter-spacing:2px;color:var(--muted)}
+
+  /* Card grid */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+  .card{border-bottom:1px solid var(--ink);padding-bottom:24px}
+  .card-img{aspect-ratio:1/1;background:var(--cream);margin-bottom:12px;position:relative}
+  .card-img::after{content:attr(data-label);position:absolute;bottom:8px;right:8px;font-size:10px;letter-spacing:2px;background:var(--ink);color:#fff;padding:3px 8px}
+  .card h3{font-size:22px;font-weight:900;letter-spacing:-.5px;line-height:1.05;margin-bottom:6px}
+  .card .price-line{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;margin-top:8px}
+  .card .price-line .big{font-size:18px;font-weight:700}
+  .card .price-line .strike{text-decoration:line-through;color:var(--muted);font-size:12px}
+  .badge{display:inline-block;font-size:9px;letter-spacing:2px;padding:2px 6px;border:1px solid var(--ink);margin-right:4px;text-transform:uppercase}
+  .badge.hot{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+  /* Stock feed */
+  .feed{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--ink)}
+  .feed-item{padding:18px 20px;border-bottom:1px solid #ccc;border-right:1px solid #ccc;display:flex;gap:14px}
+  .feed-item:nth-child(2n){border-right:none}
+  .feed-item .av{width:42px;height:42px;border-radius:50%;background:var(--cream);flex-shrink:0;border:1px solid var(--ink)}
+  .feed-item .body{flex:1;font-size:13px;line-height:1.5}
+  .feed-item .head{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:4px;letter-spacing:1px;text-transform:uppercase}
+  .feed-item .head strong{color:var(--ink)}
+  .feed-item .quote{font-style:italic;color:#333}
+  .feed-item .src-pill{display:inline-block;margin-top:8px;font-size:10px;letter-spacing:2px;color:var(--accent);text-transform:uppercase}
+
+  /* Footer */
+  footer{margin-top:64px;border-top:6px solid var(--ink);padding-top:24px;font-size:11px;letter-spacing:3px;text-transform:uppercase;display:flex;justify-content:space-between;color:var(--muted)}
+
+  .disclaimer{background:#000;color:#fff;font-size:10px;letter-spacing:2px;padding:6px 12px;display:inline-block;margin-bottom:16px;text-transform:uppercase}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <div class="logo">QUMAI<small>QU·MAI · TOKYO EDITION</small></div>
+    <div class="meta">
+      VOL.001 — ISSUE 03<br>
+      WED · 08 MAY 2026<br>
+      JPY 100 = CNY 4.71
+    </div>
+  </div>
+
+  <nav>
+    <a href="#" class="on">FRONT PAGE</a>
+    <a href="#">CHANEL</a>
+    <a href="#">LOUIS VUITTON</a>
+    <a href="#">PRICE WATCH</a>
+    <a href="#">FIELD REPORTS</a>
+    <a href="#">SOURCES</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-img"></div>
+    <div class="hero-meta">
+      <div>
+        <div class="disclaimer">DEMO · 示例数据</div>
+        <div class="kicker">COVER STORY · 本期封面</div>
+        <h1>Chanel <em>25</em><br>Small Calf<br>Black</h1>
+        <p class="lede">2025 春夏新作，Chanel 在 22 与 Classic Flap 之间的填空之作。本周 8 个数据源观察，到手价区间 ¥41,200 — ¥48,900，与中国官方价差最大 ¥7,800。</p>
+      </div>
+
+      <div class="price-panel">
+        <header>
+          <span>PRICE OBSERVATIONS · 实时</span>
+          <span>UPDATED 14 MIN AGO</span>
+        </header>
+        <div class="price-row lowest">
+          <div class="loc">银座 三越本店<small>JAPAN · 退税后到手</small></div>
+          <div class="num">¥41,200</div>
+          <div class="diff neg">−¥7,800</div>
+          <div class="src"><a href="#">微博 🔗</a></div>
+        </div>
+        <div class="price-row">
+          <div class="loc">大阪 心斋桥 大丸<small>JAPAN · 退税后</small></div>
+          <div class="num">¥42,100</div>
+          <div class="diff neg">−¥6,900</div>
+          <div class="src"><a href="#">Twitter 🔗</a></div>
+        </div>
+        <div class="price-row">
+          <div class="loc">日本机场免税<small>NARITA · DUTY FREE</small></div>
+          <div class="num">¥43,500</div>
+          <div class="diff neg">−¥5,500</div>
+          <div class="src"><a href="#">YouTube 🔗</a></div>
+        </div>
+        <div class="price-row">
+          <div class="loc">中国官方<small>OFFICIAL · BEIJING SKP</small></div>
+          <div class="num">¥49,000</div>
+          <div class="diff">基准</div>
+          <div class="src"><a href="#">官网 🔗</a></div>
+        </div>
+        <div class="price-row">
+          <div class="loc">Mercari 二手 95新<small>JAPAN · USED</small></div>
+          <div class="num">¥38,900</div>
+          <div class="diff neg">−¥10,100</div>
+          <div class="src"><a href="#">Mercari 🔗</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WATCHLIST -->
+  <div class="h2">
+    <span>YOUR WATCHLIST · 关注款</span>
+    <span class="more">VIEW ALL 12 →</span>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-img" data-label="−16%" style="background:linear-gradient(135deg,#e8d5d5,#c5a5a5)"></div>
+      <div><span class="badge hot">命中目标价</span><span class="badge">CHANEL</span></div>
+      <h3>22Bag Small<br>Black Calf</h3>
+      <div class="price-line">
+        <span class="strike">¥45,600</span>
+        <span class="big">¥38,200</span>
+      </div>
+      <div class="price-line"><span style="color:var(--muted);font-size:11px">日本最低 · 银座香奈儿本店</span><span style="color:#1d6a3e;font-size:11px">−¥7,400</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-img" data-label="−12%" style="background:linear-gradient(135deg,#d5d5e8,#9595c5)"></div>
+      <div><span class="badge">LV</span><span class="badge">M40995</span></div>
+      <h3>Neverfull MM<br>Damier</h3>
+      <div class="price-line">
+        <span class="strike">¥19,500</span>
+        <span class="big">¥17,100</span>
+      </div>
+      <div class="price-line"><span style="color:var(--muted);font-size:11px">大阪高岛屋 · 退税后</span><span style="color:#1d6a3e;font-size:11px">−¥2,400</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-img" data-label="缺货" style="background:linear-gradient(135deg,#f0e3c8,#c8a877)"></div>
+      <div><span class="badge">CHANEL</span><span class="badge">"黄牛角"</span></div>
+      <h3>Coco Handle<br>Small Caviar</h3>
+      <div class="price-line">
+        <span class="strike">¥51,200</span>
+        <span class="big" style="color:var(--muted)">询价</span>
+      </div>
+      <div class="price-line"><span style="color:var(--muted);font-size:11px">5 家观察 · 全部缺货</span><span style="color:var(--accent);font-size:11px">▲ 等补货</span></div>
+    </div>
+  </div>
+
+  <!-- INTEL FEED -->
+  <div class="h2">
+    <span>FIELD INTEL · 现货情报</span>
+    <span class="more">SHOWING 6 OF 47 · LAST 24H</span>
+  </div>
+  <div class="feed">
+    <div class="feed-item">
+      <div class="av"></div>
+      <div class="body">
+        <div class="head"><strong>@东京买手 -saki</strong><span>WEIBO · 23 MIN AGO</span></div>
+        <div class="quote">"今天银座 Chanel 本店 25 黑色小号还有一只，限购一只，店员说下午可能就走了。退税后 ¥41,200。"</div>
+        <div class="src-pill">SOURCE 🔗 weibo.com/u/...</div>
+      </div>
+    </div>
+    <div class="feed-item">
+      <div class="av"></div>
+      <div class="body">
+        <div class="head"><strong>@ginza_lv_clerk</strong><span>X · 1H AGO</span></div>
+        <div class="quote">"LV Neverfull MM Damier ebene 在库あります。本日中なら確実。"</div>
+        <div class="src-pill">SOURCE 🔗 x.com/...</div>
+      </div>
+    </div>
+    <div class="feed-item">
+      <div class="av"></div>
+      <div class="body">
+        <div class="head"><strong>@奢品猎人 lulu</strong><span>WEIBO · 2H AGO</span></div>
+        <div class="quote">"22bag 小号黑金 心斋桥大丸刚补货 3 只，下午两点开门要冲。"</div>
+        <div class="src-pill">SOURCE 🔗 weibo.com/u/...</div>
+      </div>
+    </div>
+    <div class="feed-item">
+      <div class="av"></div>
+      <div class="body">
+        <div class="head"><strong>Mercari Bot</strong><span>MERCARI · 3H AGO</span></div>
+        <div class="quote">"Chanel 25 Small Black 95 新 ¥38,900 上架，卖家信用 4.9，9 分钟前。"</div>
+        <div class="src-pill">SOURCE 🔗 mercari.jp/...</div>
+      </div>
+    </div>
+    <div class="feed-item">
+      <div class="av"></div>
+      <div class="body">
+        <div class="head"><strong>@日杂买买买</strong><span>YOUTUBE · 6H AGO</span></div>
+        <div class="quote">"成田机场免税 Chanel 25 medium 还有库存，但比银座贵 ¥1,800，不建议机场买。"</div>
+        <div class="src-pill">SOURCE 🔗 youtube.com/...</div>
+      </div>
+    </div>
+    <div class="feed-item">
+      <div class="av"></div>
+      <div class="body">
+        <div class="head"><strong>@panda_in_tokyo</strong><span>X · 8H AGO</span></div>
+        <div class="quote">"Coco Handle small 全东京我跑了 6 家都没货，等下一波补。"</div>
+        <div class="src-pill">SOURCE 🔗 x.com/...</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span>QUMAI © 2026 · A PERSONAL TRACKER</span>
+    <span>DATA: WEIBO · X · YOUTUBE · MERCARI · OFFICIAL · ALL SOURCED</span>
+  </footer>
+
+</div>
+</body>
+</html>
