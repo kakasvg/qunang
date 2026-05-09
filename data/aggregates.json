@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-09T07:22:10.018835+00:00",
+  "generated_at": "2026-05-09T10:37:56.926688+00:00",
   "jpy_to_cny": 0.043465,
   "products": {
     "chanel_25_small_black": {
@@ -9,7 +9,7 @@
       "official_cny": 49000,
       "diff_vs_official": -10968,
       "target_hit": true,
-      "observations_24h": 1,
+      "observations_24h": 0,
       "source_breakdown": {
         "weibo": 1
       }
@@ -31,7 +31,7 @@
       "official_cny": 19500,
       "diff_vs_official": -3722,
       "target_hit": true,
-      "observations_24h": 1,
+      "observations_24h": 0,
       "source_breakdown": {
         "x": 1
       }
