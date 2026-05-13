@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-05-12T21:45:35.537691+00:00",
-  "jpy_to_cny": 0.043317,
+  "generated_at": "2026-05-13T08:17:59.147918+00:00",
+  "jpy_to_cny": 0.043199,
   "products": {
     "chanel_25_small_black": {
       "name": "Chanel 25 Small 黑色小牛皮",
-      "lowest_cny": 37902,
-      "median_cny": 37902,
+      "lowest_cny": 37799,
+      "median_cny": 37799,
       "official_cny": 49000,
-      "diff_vs_official": -11098,
+      "diff_vs_official": -11201,
       "target_hit": true,
       "observations_24h": 0,
       "source_breakdown": {
@@ -26,10 +26,10 @@
     },
     "lv_neverfull_mm_damier_ebene": {
       "name": "LV Neverfull MM Damier Ebene",
-      "lowest_cny": 15724,
-      "median_cny": 15724,
+      "lowest_cny": 15681,
+      "median_cny": 15681,
       "official_cny": 19500,
-      "diff_vs_official": -3776,
+      "diff_vs_official": -3819,
       "target_hit": true,
       "observations_24h": 0,
       "source_breakdown": {
